@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Categories implements Serializable {
+public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -17,10 +17,10 @@ public class Categories implements Serializable {
     private String nome;
 
 
-    public Categories() {
+    public Category() {
     }
 
-    public Categories(Integer id, String nome) {
+    public Category(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
     }
@@ -45,7 +45,7 @@ public class Categories implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Categories that = (Categories) o;
+        Category that = (Category) o;
         return id.equals(that.id);
     }
 
