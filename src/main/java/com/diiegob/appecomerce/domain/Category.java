@@ -1,10 +1,10 @@
 package com.diiegob.appecomerce.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.nio.MappedByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +15,8 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products = new ArrayList<>();
 
 
     public Category() {
@@ -37,6 +39,14 @@ public class Category implements Serializable {
         return nome;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -54,11 +64,4 @@ public class Category implements Serializable {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "Categories{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                '}';
-    }
 }
