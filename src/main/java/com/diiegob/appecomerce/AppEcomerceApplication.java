@@ -1,13 +1,8 @@
 package com.diiegob.appecomerce;
 
-import com.diiegob.appecomerce.domain.Category;
-import com.diiegob.appecomerce.domain.City;
-import com.diiegob.appecomerce.domain.State;
-import com.diiegob.appecomerce.domain.Product;
-import com.diiegob.appecomerce.repositories.CategoryRepository;
-import com.diiegob.appecomerce.repositories.CityRepository;
-import com.diiegob.appecomerce.repositories.ProductRepository;
-import com.diiegob.appecomerce.repositories.StateRepository;
+import com.diiegob.appecomerce.domain.*;
+import com.diiegob.appecomerce.domain.enuns.TypeClient;
+import com.diiegob.appecomerce.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,15 +15,16 @@ public class AppEcomerceApplication implements CommandLineRunner {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
-
 	@Autowired
 	private ProductRepository productRepository;
-
 	@Autowired
 	private StateRepository stateRepository;
-
 	@Autowired
 	private CityRepository cityRepository;
+	@Autowired
+	private AddressRepository addressRepository;
+	@Autowired
+	private ClientRepository clientRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppEcomerceApplication.class, args);
@@ -65,5 +61,18 @@ public class AppEcomerceApplication implements CommandLineRunner {
 
 		stateRepository.saveAll(Arrays.asList(est1, est2));
 		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+		Client cli1 = new Client(null, "Maria Silva", "maria@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+
+		cli1.getPhones().addAll(Arrays.asList("27363323", "93838393"));
+
+		Address e1 = new Address(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, c1 );
+		Address e2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2 );
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
+		clientRepository.saveAll(Arrays.asList(cli1));
+		addressRepository.saveAll(Arrays.asList(e1, e2));
+
 	}
 }
