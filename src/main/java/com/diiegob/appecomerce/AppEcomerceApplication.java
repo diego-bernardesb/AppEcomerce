@@ -1,9 +1,13 @@
 package com.diiegob.appecomerce;
 
 import com.diiegob.appecomerce.domain.Category;
+import com.diiegob.appecomerce.domain.City;
+import com.diiegob.appecomerce.domain.State;
 import com.diiegob.appecomerce.domain.Product;
 import com.diiegob.appecomerce.repositories.CategoryRepository;
+import com.diiegob.appecomerce.repositories.CityRepository;
 import com.diiegob.appecomerce.repositories.ProductRepository;
+import com.diiegob.appecomerce.repositories.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +23,12 @@ public class AppEcomerceApplication implements CommandLineRunner {
 
 	@Autowired
 	private ProductRepository productRepository;
+
+	@Autowired
+	private StateRepository stateRepository;
+
+	@Autowired
+	private CityRepository cityRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppEcomerceApplication.class, args);
@@ -42,5 +52,18 @@ public class AppEcomerceApplication implements CommandLineRunner {
 
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
 		productRepository.saveAll(Arrays.asList(p1,p2,p3));
+		
+		State est1 = new State(null, "Minas Gerais");
+		State est2 = new State(null, "São Paulo");
+
+		City c1 = new City(null, "Uberlândia", est1);
+		City c2 = new City(null, "São Paulo", est2);
+		City c3 = new City(null, "Campinas", est2);
+
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2, c3));
+
+		stateRepository.saveAll(Arrays.asList(est1, est2));
+		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
 	}
 }
