@@ -1,8 +1,9 @@
 package com.diiegob.appecomerce.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.nio.MappedByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +16,7 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @JsonManagedReference //tratar a operação ciclica das duas listas
     @ManyToMany(mappedBy = "categories")
     private List<Product> products = new ArrayList<>();
 
@@ -43,12 +45,12 @@ public class Category implements Serializable {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override
