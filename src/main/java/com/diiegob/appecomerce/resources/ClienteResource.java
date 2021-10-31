@@ -16,7 +16,7 @@ public class ClienteResource {
     @Autowired
     ClientService service;
 
-
+    @GetMapping(value = "/{id}")
     public ResponseEntity<?> find(@PathVariable Integer id){
 
         Client obj = service.clientById(id);
