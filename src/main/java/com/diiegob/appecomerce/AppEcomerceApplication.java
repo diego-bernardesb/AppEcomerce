@@ -1,6 +1,7 @@
 package com.diiegob.appecomerce;
 
 import com.diiegob.appecomerce.domain.*;
+import com.diiegob.appecomerce.domain.enuns.StatusPayment;
 import com.diiegob.appecomerce.domain.enuns.TypeClient;
 import com.diiegob.appecomerce.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -25,6 +27,10 @@ public class AppEcomerceApplication implements CommandLineRunner {
 	private AddressRepository addressRepository;
 	@Autowired
 	private ClientRepository clientRepository;
+	@Autowired
+	private RequestRepository requestRepository;
+	@Autowired
+	private PaymentRepository paymentRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppEcomerceApplication.class, args);
@@ -73,6 +79,22 @@ public class AppEcomerceApplication implements CommandLineRunner {
 
 		clientRepository.saveAll(Arrays.asList(cli1));
 		addressRepository.saveAll(Arrays.asList(e1, e2));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+		Request ped1 = new Request(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		Request ped2 = new Request(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+
+		Payment pagto1 = new CardPayment(null, StatusPayment.QUITADO, ped1, 6);
+		ped1.setPagamento(pagto1); //adiciona o pagamento ao pedido
+
+		Payment pagto2 = new BilletPayment(null, StatusPayment.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+		ped2.setPagamento(pagto2);
+
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2)); //adiciona os pedidos ao cliente
+
+		requestRepository.saveAll(Arrays.asList(ped1, ped2));
+		paymentRepository.saveAll(Arrays.asList(pagto1, pagto2));
 
 	}
 }

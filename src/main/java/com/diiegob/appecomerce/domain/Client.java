@@ -1,7 +1,6 @@
 package com.diiegob.appecomerce.domain;
 
 import com.diiegob.appecomerce.domain.enuns.TypeClient;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -27,6 +26,10 @@ public class Client implements Serializable {
     @ElementCollection //representa uma entidade fraca
     @CollectionTable(name = "telefones") //nome da tabela que irá representa essa entidade fraca
     private Set<String> phones = new HashSet<>();
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Request> pedidos = new ArrayList<>();
+
 
     public Client() {
     }
@@ -93,6 +96,14 @@ public class Client implements Serializable {
 
     public void setPhones(Set<String> phones) {
         this.phones = phones;
+    }
+
+    public List<Request> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Request> pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override
