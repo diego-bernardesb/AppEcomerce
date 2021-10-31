@@ -1,5 +1,7 @@
 package com.diiegob.appecomerce.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,6 +14,7 @@ public class City implements Serializable {
     private Integer id;
     private String nome;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private State estado;

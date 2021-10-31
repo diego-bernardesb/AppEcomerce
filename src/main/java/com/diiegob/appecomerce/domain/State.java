@@ -1,5 +1,7 @@
 package com.diiegob.appecomerce.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class State implements Serializable {
     private Integer id;
     private String nome;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "estado")
     private List<City> cidades = new ArrayList<>();
 

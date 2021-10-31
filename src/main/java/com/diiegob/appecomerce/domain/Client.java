@@ -1,6 +1,8 @@
 package com.diiegob.appecomerce.domain;
 
 import com.diiegob.appecomerce.domain.enuns.TypeClient;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,6 +20,7 @@ public class Client implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Address> enderecos = new ArrayList<>();
 
