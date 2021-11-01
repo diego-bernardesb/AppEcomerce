@@ -31,6 +31,8 @@ public class AppEcomerceApplication implements CommandLineRunner {
 	private RequestRepository requestRepository;
 	@Autowired
 	private PaymentRepository paymentRepository;
+	@Autowired
+	private ItemOrderRepository itemOrderRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppEcomerceApplication.class, args);
@@ -95,6 +97,23 @@ public class AppEcomerceApplication implements CommandLineRunner {
 
 		requestRepository.saveAll(Arrays.asList(ped1, ped2));
 		paymentRepository.saveAll(Arrays.asList(pagto1, pagto2));
+
+		ItemOrder ip1 = new ItemOrder(ped1, p1,0.00 , 1, 2000.00);
+		ItemOrder ip2 = new ItemOrder(ped1, p3,0.00 , 2, 80.00);
+		ItemOrder ip3 = new ItemOrder(ped2, p2,100.00 , 1, 800.00);
+
+		//adiciona os itens de pedidos a lista de pedidos
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+
+		//adiciona os produtos a lista de itens de pedidos
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+
+		itemOrderRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+
+
 
 	}
 }

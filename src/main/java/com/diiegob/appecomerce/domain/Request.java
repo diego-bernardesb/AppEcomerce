@@ -2,8 +2,7 @@ package com.diiegob.appecomerce.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Request implements Serializable {
@@ -25,6 +24,9 @@ public class Request implements Serializable {
     @JoinColumn(name = "endereco_entrega_id")
     private Address enderecoDeEntrega;
 
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemOrder> itens = new HashSet<>();
+
     public Request() {
     }
 
@@ -33,6 +35,14 @@ public class Request implements Serializable {
         this.instante = instante;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
+    }
+
+    public List<Request> getPedidos(){
+        List<Request> lista = new ArrayList<>();
+        for (ItemOrder x: itens ) {
+            lista.add(x.getPedido());
+        }
+        return lista;
     }
 
     public Integer getId() {
@@ -73,6 +83,14 @@ public class Request implements Serializable {
 
     public void setEnderecoDeEntrega(Address enderecoDeEntrega) {
         this.enderecoDeEntrega = enderecoDeEntrega;
+    }
+
+    public Set<ItemOrder> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemOrder> itens) {
+        this.itens = itens;
     }
 
     @Override
