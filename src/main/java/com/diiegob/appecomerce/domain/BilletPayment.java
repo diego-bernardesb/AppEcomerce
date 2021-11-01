@@ -1,6 +1,7 @@
 package com.diiegob.appecomerce.domain;
 
 import com.diiegob.appecomerce.domain.enuns.StatusPayment;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
@@ -11,8 +12,11 @@ import java.util.Date;
 public class BilletPayment extends Payment{ //sub-classe de payment
     private static final long serialVersionUID = 1L;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Temporal(TemporalType.DATE) //insere apenas a data no banco de dados
     private Date dataVencimento;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Temporal(TemporalType.DATE)
     private Date dataPagamento;
 

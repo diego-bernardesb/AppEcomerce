@@ -1,6 +1,7 @@
 package com.diiegob.appecomerce.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class Product implements Serializable {
     )
     private List<Category> categories = new ArrayList<>();
 
+    @JsonIgnore //ignorar a serialização de itens de pedido atravez do produto
     @OneToMany(mappedBy = "id.produto")
     private Set<ItemOrder> itens = new HashSet<>();
 
@@ -35,6 +37,16 @@ public class Product implements Serializable {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
+    }
+
+    //ignorar listar os produtos associados ao pedido
+    @JsonIgnore
+    public List<Request> getPedidos(){
+        List<Request> lista = new ArrayList<>();
+        for (ItemOrder x: itens ) {
+            lista.add(x.getPedido());
+        }
+        return lista;
     }
 
     public Integer getId() {

@@ -1,5 +1,7 @@
 package com.diiegob.appecomerce.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -9,6 +11,7 @@ import java.util.Objects;
 public class ItemOrder implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @EmbeddedId
     private ItemOrderPK id = new ItemOrderPK();
 
@@ -27,6 +30,7 @@ public class ItemOrder implements Serializable {
         this.preco = preco;
     }
 
+    @JsonIgnore
     public Request getPedido() {
         return id.getPedido();
     }

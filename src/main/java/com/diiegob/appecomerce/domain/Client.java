@@ -1,6 +1,7 @@
 package com.diiegob.appecomerce.domain;
 
 import com.diiegob.appecomerce.domain.enuns.TypeClient;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Client implements Serializable {
     private Set<String> phones = new HashSet<>();
 
     @OneToMany(mappedBy = "cliente")
+    @JsonBackReference
     private List<Request> pedidos = new ArrayList<>();
 
 
