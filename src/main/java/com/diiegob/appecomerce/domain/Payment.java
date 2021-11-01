@@ -1,7 +1,7 @@
 package com.diiegob.appecomerce.domain;
 
 import com.diiegob.appecomerce.domain.enuns.StatusPayment;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,7 +16,7 @@ public abstract class Payment implements Serializable {
     private Integer id;
     private Integer estado;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId//usar o msm id do pedido para o pagamento

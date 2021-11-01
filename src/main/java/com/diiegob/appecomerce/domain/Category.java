@@ -1,7 +1,5 @@
 package com.diiegob.appecomerce.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    @JsonManagedReference //tratar a operação ciclica das duas listas
+
     @ManyToMany(mappedBy = "categories")
     private List<Product> products = new ArrayList<>();
 

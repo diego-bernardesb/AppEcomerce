@@ -1,6 +1,5 @@
 package com.diiegob.appecomerce.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -18,7 +17,7 @@ public class Product implements Serializable {
     private String nome;
     private Double preco;
 
-    @JsonBackReference //referencia que os objetos já foram buscado no outro lado da tabela
+    @JsonIgnore //ignorar serialização ciclica
     @ManyToMany
     @JoinTable(name = "PRODUCT_CATEGORY",
         joinColumns = @JoinColumn(name = "product_id"),
