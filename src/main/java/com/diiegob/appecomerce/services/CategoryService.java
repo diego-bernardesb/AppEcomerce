@@ -5,6 +5,9 @@ import com.diiegob.appecomerce.repositories.CategoryRepository;
 import com.diiegob.appecomerce.services.exceptions.DataIntegrityViolationException;
 import com.diiegob.appecomerce.services.exceptions.ObjNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +47,12 @@ public class CategoryService {
 
     public List<Category> findAll(){
         return repo.findAll();
+    }
+
+    public Page<Category> findPage(Integer page, Integer linesPerPage, String direction, String orderBy){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return repo.findAll(pageRequest);
+
     }
 
 }

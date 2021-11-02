@@ -42,6 +42,13 @@ public class AppEcomerceApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Category cat1 = new Category(null, "Informática");
 		Category cat2 = new Category(null, "Escritório");
+		Category cat3 = new Category(null, "Cama mesa e banho");
+		Category cat4 = new Category(null, "Jardinagem");
+		Category cat5 = new Category(null, "Eletrônicos");
+		Category cat6 = new Category(null, "Decoração");
+		Category cat7 = new Category(null, "Perfumaria");
+		Category cat8 = new Category(null, "Móveis");
+		Category cat9 = new Category(null, "Limpeza");
 
 		Product p1 = new Product(null,"Computador", 2000.00);
 		Product p2 = new Product(null,"Impressora", 800.00);
@@ -54,7 +61,7 @@ public class AppEcomerceApplication implements CommandLineRunner {
 		p2.getCategories().addAll(Arrays.asList(cat1,cat2));
 		p3.getCategories().addAll(Arrays.asList(cat1));
 
-		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9));
 		productRepository.saveAll(Arrays.asList(p1,p2,p3));
 		
 		State est1 = new State(null, "Minas Gerais");
