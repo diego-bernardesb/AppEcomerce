@@ -1,6 +1,7 @@
 package com.diiegob.appecomerce.services;
 
 import com.diiegob.appecomerce.domain.Category;
+import com.diiegob.appecomerce.dto.CategoryDTO;
 import com.diiegob.appecomerce.repositories.CategoryRepository;
 import com.diiegob.appecomerce.services.exceptions.DataIntegrityViolationException;
 import com.diiegob.appecomerce.services.exceptions.ObjNotFoundException;
@@ -53,6 +54,10 @@ public class CategoryService {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
 
+    }
+
+    public Category fromDTO(CategoryDTO objDto){
+        return new Category(objDto.getId(), objDto.getNome());
     }
 
 }
