@@ -32,7 +32,8 @@ public class CategoryService {
     }
 
     public Category update(Category obj){
-        find(obj.getId());//reutiliza o codigo get para confirmar o objeto
+        Category newObj = find(obj.getId());//reutiliza o codigo get para confirmar o objeto
+        updateData(newObj, obj);
         return repo.save(obj);
     }
 
@@ -60,4 +61,7 @@ public class CategoryService {
         return new Category(objDto.getId(), objDto.getNome());
     }
 
+    private void updateData(Category newObj, Category obj){
+        newObj.setNome(obj.getNome());
+    }
 }

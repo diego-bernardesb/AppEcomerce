@@ -27,7 +27,7 @@ public abstract class Payment implements Serializable {
 
     public Payment(Integer id, StatusPayment estado, Request pedido) { //StatusPaymente recebe ENUM e converte em Integer
         this.id = id;
-        this.estado = estado.getCodigo();
+        this.estado = (estado == null)? null : estado.getCodigo();
         this.pedido = pedido;
     }
 
