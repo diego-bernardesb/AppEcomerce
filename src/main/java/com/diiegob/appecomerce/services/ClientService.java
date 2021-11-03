@@ -1,11 +1,17 @@
 package com.diiegob.appecomerce.services;
 
 import com.diiegob.appecomerce.domain.Client;
+import com.diiegob.appecomerce.dto.ClientDTO;
 import com.diiegob.appecomerce.repositories.ClientRepository;
+import com.diiegob.appecomerce.services.exceptions.DataIntegrityViolationException;
 import com.diiegob.appecomerce.services.exceptions.ObjNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,5 +24,47 @@ public class ClientService {
         Optional<Client> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjNotFoundException(
                 "Cliente não encontrado! ID: " + id +", Tipo: " + Client.class.getName()));
+    }
+
+    public Client insert(Client obj){
+        obj.setId(null);
+        return repo.save(obj);
+    }
+
+    public Client update(Client obj){
+        //instancia um newObj atraves do banco de dados
+        Client newObj = find(obj.getId());//reutiliza o codigo get para confirmar o objeto
+        updateData(newObj, obj);
+        return repo.save(newObj);
+    }
+
+    public void delete(Integer id) {
+        find(id);
+        //exceção personalisada para não estourar error 5xx
+        try {
+            repo.deleteById(id);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("Não é possivel deletar pq há entidades relacionadas");
+        }
+    }
+
+    public List<Client> findAll(){
+        return repo.findAll();
+    }
+
+    public Page<Client> findPage(Integer page, Integer linesPerPage, String direction, String orderBy){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return repo.findAll(pageRequest);
+
+    }
+
+    public Client fromDTO(ClientDTO objDto){
+        return new Client(objDto.getId(), objDto.getNome(), objDto.getEmail(), null,null);
+    }
+
+    private void updateData(Client newObj, Client obj){
+        //atualiza apenas os dados recebidos pelo obj
+        newObj.setNome(obj.getNome());
+        newObj.setEmail(obj.getEmail());
     }
 }

@@ -78,6 +78,19 @@ public class AppEcomerceApplication implements CommandLineRunner {
 		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
 
 		Client cli1 = new Client(null, "Maria Silva", "maria@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli2 = new Client(null, "Ana Dias", "anadias@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli3 = new Client(null, "João Rodrigues", "joao-rodrigues@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli4 = new Client(null, "Agnaldo Pereira", "agnaldo@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli5 = new Client(null, "Lia Brown", "lia.b@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli6 = new Client(null, "Alberto Martins", "albi@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli7 = new Client(null, "Bia Antunes", "bia@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli8 = new Client(null, "Reginaldo Alencar", "reginaldo@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli9 = new Client(null, "Bruno Santos", "santos.bru@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli10 = new Client(null, "Rodolfo Santos", "ro.santos@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli11 = new Client(null, "Josefine Araujo", "jofine@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli12 = new Client(null, "Rafael Pinheiros", "rafa@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli13 = new Client(null, "Marta Cecilia", "marta@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
+		Client cli14 = new Client(null, "Diego Bernardes", "diego@gmail.com", "36378912377", TypeClient.PESSOAFISICA);
 
 		cli1.getPhones().addAll(Arrays.asList("27363323", "93838393"));
 
@@ -86,7 +99,7 @@ public class AppEcomerceApplication implements CommandLineRunner {
 
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 
-		clientRepository.saveAll(Arrays.asList(cli1));
+		clientRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5, cli6, cli7, cli8, cli9, cli10, cli11, cli12, cli13, cli14));
 		addressRepository.saveAll(Arrays.asList(e1, e2));
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
