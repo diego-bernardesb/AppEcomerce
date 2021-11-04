@@ -1,7 +1,12 @@
 package com.diiegob.appecomerce.services;
 
+import com.diiegob.appecomerce.domain.Address;
+import com.diiegob.appecomerce.domain.City;
 import com.diiegob.appecomerce.domain.Client;
+import com.diiegob.appecomerce.domain.enuns.TypeClient;
 import com.diiegob.appecomerce.dto.ClientDTO;
+import com.diiegob.appecomerce.dto.ClientNewDTO;
+import com.diiegob.appecomerce.repositories.AddressRepository;
 import com.diiegob.appecomerce.repositories.ClientRepository;
 import com.diiegob.appecomerce.services.exceptions.DataIntegrityViolationException;
 import com.diiegob.appecomerce.services.exceptions.ObjNotFoundException;
@@ -10,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +25,8 @@ public class ClientService {
 
     @Autowired
     private ClientRepository repo;
+    @Autowired
+    private AddressRepository addressRepository;
 
     public Client find(Integer id){
         Optional<Client> obj = repo.findById(id);
@@ -26,9 +34,12 @@ public class ClientService {
                 "Cliente não encontrado! ID: " + id +", Tipo: " + Client.class.getName()));
     }
 
+    @Transactional
     public Client insert(Client obj){
         obj.setId(null);
-        return repo.save(obj);
+        repo.save(obj);
+        addressRepository.saveAll(obj.getEnderecos());
+        return obj;
     }
 
     public Client update(Client obj){
@@ -60,6 +71,22 @@ public class ClientService {
 
     public Client fromDTO(ClientDTO objDto){
         return new Client(objDto.getId(), objDto.getNome(), objDto.getEmail(), null,null);
+    }
+
+    public Client fromDTO(ClientNewDTO objDto){
+        Client cli = new Client(null, objDto.getNome(),objDto.getEmail(), objDto.getCpfOuCnpj(), TypeClient.toEnun(objDto.getTipo()));
+        City cid = new City(objDto.getCidadeId(), null, null );
+        Address end = new Address(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(),objDto.getBairro(),objDto.getCep(),cli, cid);
+        cli.getEnderecos().add(end);
+        cli.getPhones().add(objDto.getTelefone1());
+        if(objDto.getTelefone2() != null){
+            cli.getPhones().add(objDto.getTelefone2());
+        }
+        if(objDto.getTelefone3() != null){
+            cli.getPhones().add(objDto.getTelefone3());
+        }
+
+        return cli;
     }
 
     private void updateData(Client newObj, Client obj){

@@ -1,9 +1,12 @@
 package com.diiegob.appecomerce.resources;
 
+import com.diiegob.appecomerce.domain.Category;
 import com.diiegob.appecomerce.domain.Client;
 import com.diiegob.appecomerce.domain.Client;
+import com.diiegob.appecomerce.dto.CategoryDTO;
 import com.diiegob.appecomerce.dto.ClientDTO;
 import com.diiegob.appecomerce.dto.ClientDTO;
+import com.diiegob.appecomerce.dto.ClientNewDTO;
 import com.diiegob.appecomerce.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,7 +34,7 @@ public class ClientResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@Valid @RequestBody ClientDTO objDto) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClientNewDTO objDto) {
         Client obj = service.fromDTO(objDto);
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
