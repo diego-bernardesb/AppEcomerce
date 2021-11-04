@@ -55,7 +55,7 @@ public class ClientService {
         try {
             repo.deleteById(id);
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException("Não é possivel deletar pq há entidades relacionadas");
+            throw new DataIntegrityViolationException("Não é possivel deletar pq há pedidos relacionados");
         }
     }
 

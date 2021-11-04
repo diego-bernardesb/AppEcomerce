@@ -20,7 +20,7 @@ public class Client implements Serializable {
     private Integer tipo;
 
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)//aplica operação em cascada em endereço quando cliente é modificado
     private List<Address> enderecos = new ArrayList<>();
 
     @ElementCollection //representa uma entidade fraca
