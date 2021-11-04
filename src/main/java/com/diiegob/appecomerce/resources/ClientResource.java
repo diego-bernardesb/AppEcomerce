@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class ClientResource {
 
     @Autowired
-    ClientService service;
+    private ClientService service;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Client> find(@PathVariable Integer id){

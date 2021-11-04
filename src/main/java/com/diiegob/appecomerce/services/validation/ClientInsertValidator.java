@@ -16,7 +16,7 @@ import java.util.List;
 public class ClientInsertValidator implements ConstraintValidator<ClientInsert, ClientNewDTO> {
 
     @Autowired
-    ClientRepository repo;
+    private ClientRepository repo;
 
     @Override
     public void initialize(ClientInsert ann) {
