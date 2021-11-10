@@ -1,10 +1,12 @@
 package com.diiegob.appecomerce.domain;
 
 import com.diiegob.appecomerce.domain.enuns.StatusPayment;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 
 @Entity
+@JsonTypeName("cardPayment")
 public class CardPayment extends Payment{ //sub-classe de payment
     private static final long serialVersionUID = 1L;
 

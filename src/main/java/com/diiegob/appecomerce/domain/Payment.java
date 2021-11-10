@@ -2,6 +2,7 @@ package com.diiegob.appecomerce.domain;
 
 import com.diiegob.appecomerce.domain.enuns.StatusPayment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) //definir se cada sub-classe será integrada em uma tabela(.SINGLE) ou tabelas independentes(.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Payment implements Serializable {
     private static final long serialVersionUID = 1L;
 
