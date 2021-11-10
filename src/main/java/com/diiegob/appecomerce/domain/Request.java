@@ -45,6 +45,14 @@ public class Request implements Serializable {
         this.enderecoDeEntrega = enderecoDeEntrega;
     }
 
+    public double getValorTotal(){
+        double soma = 0.0;
+        for (ItemOrder io: itens){
+            soma = soma + io.getSubTotal();
+        }
+        return soma;
+    }
+
     public Integer getId() {
         return id;
     }
